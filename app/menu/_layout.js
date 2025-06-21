@@ -17,7 +17,7 @@ export default function StackLayout() {
       <Stack.Screen
         name="[itemId]"
         options={{
-          title: 'Food Details',
+          title: '',
           headerShown: true,
         }}
       />

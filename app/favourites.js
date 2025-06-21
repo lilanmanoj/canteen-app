@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function Favourite() {
   return (
     <View style={styles.container}>
-      <Text>Favourite Tab!</Text>
+      <Text>Favourites Tab!</Text>
       <StatusBar style="auto" />
     </View>
   );

@@ -3,13 +3,13 @@ import { router } from 'expo-router';
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function MenuTab() {
+export default function Menu() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.pageTitle}>Today's Menu</Text>
       <FlatList
         data={MENU_ITEMS}
-        renderItem={({item}) => <Item id={item.id} image={item.image} title={item.name} />}
+        renderItem={({item}) => <Item data={item} />}
         keyExtractor={item => item.id}
       />
       <StatusBar style="auto" />
@@ -17,12 +17,12 @@ export default function MenuTab() {
   );
 }
 
-const Item = ({id, title, image}) => (
+const Item = ({data}) => (
   <Pressable
     onPress={() =>
       router.navigate({
         pathname: '/menu/[itemId]',
-        params: { id: id }
+        params: data,
       })
     }
   >
@@ -30,10 +30,10 @@ const Item = ({id, title, image}) => (
       <Image
         style={styles.itemImage}
         source={{
-          uri: image || 'https://cdn.vectorstock.com/i/500p/42/11/creative-concept-of-brain-food-symbolized-vector-53434211.jpg',
+          uri: data.image || 'https://cdn.vectorstock.com/i/500p/42/11/creative-concept-of-brain-food-symbolized-vector-53434211.jpg',
         }}
       />
-      <Text style={styles.itemTitle}>{title}</Text>
+      <Text style={styles.itemTitle}>{data.name}</Text>
     </View>
   </Pressable>
 );
@@ -142,8 +142,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   itemTitle: {
-    fontSize: 16,
+    fontSize: 15,
     flexGrow: 2,
+    fontWeight: 500,
   },
   itemImage: {
     width: 50,
