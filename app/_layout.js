@@ -9,6 +9,7 @@ export default function RootLayout() {
         options={{
           title: 'Menu',
           tabBarIcon: ({ color }) => <MaterialIcons size={28} name="local-dining" color={color} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
