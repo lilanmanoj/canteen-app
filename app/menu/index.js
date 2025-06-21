@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MenuTab() {
@@ -8,7 +9,7 @@ export default function MenuTab() {
       <Text style={styles.pageTitle}>Today's Menu</Text>
       <FlatList
         data={MENU_ITEMS}
-        renderItem={({item}) => <Item image={item.image} title={item.name} />}
+        renderItem={({item}) => <Item id={item.id} image={item.image} title={item.name} />}
         keyExtractor={item => item.id}
       />
       <StatusBar style="auto" />
@@ -16,16 +17,25 @@ export default function MenuTab() {
   );
 }
 
-const Item = ({title, image}) => (
-  <View style={styles.item}>
-    <Image
-      style={styles.itemImage}
-      source={{
-        uri: image || 'https://cdn.vectorstock.com/i/500p/42/11/creative-concept-of-brain-food-symbolized-vector-53434211.jpg',
-      }}
-    />
-    <Text style={styles.itemTitle}>{title}</Text>
-  </View>
+const Item = ({id, title, image}) => (
+  <Pressable
+    onPress={() =>
+      router.navigate({
+        pathname: '/menu/[itemId]',
+        params: { id: id }
+      })
+    }
+  >
+    <View style={styles.item}>
+      <Image
+        style={styles.itemImage}
+        source={{
+          uri: image || 'https://cdn.vectorstock.com/i/500p/42/11/creative-concept-of-brain-food-symbolized-vector-53434211.jpg',
+        }}
+      />
+      <Text style={styles.itemTitle}>{title}</Text>
+    </View>
+  </Pressable>
 );
 
 const MENU_ITEMS = [
