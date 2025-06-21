@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { useLocalSearchParams } from 'expo-router';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { useFavourites } from '../../context/FavouritesContext';
 
 export default function ShowItem() {
   const ITEM = useLocalSearchParams();
+  const { toggleFavourite, isFavourite } = useFavourites();
   
   if (!ITEM || !ITEM.id) {
     return (
@@ -24,6 +26,10 @@ export default function ShowItem() {
       <Text style={styles.itemName}>{ITEM.name}</Text>
       <Text style={styles.itemPrice}>${ITEM.price}</Text>
       <Text style={styles.itemDescription}>{ITEM.description}</Text>
+      <Button
+        title={isFavourite(ITEM.id) ? 'Unsave from Favourites' : 'Save to Favourites'}
+        onPress={() => toggleFavourite(ITEM)}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -61,5 +67,6 @@ const styles = StyleSheet.create({
   itemDescription: {
     textAlign: 'left',
     marginTop: 10,
-  }
+    marginBottom: 20,
+  },
 });
